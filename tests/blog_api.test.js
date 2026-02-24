@@ -36,6 +36,33 @@ describe("GET /api/blogs", () => {
   });
 });
 
+describe("POST /api/blogs", () => {
+  test("a valid blog post can be added", async () => {
+    const newBlog = {
+      title: "Understanding Asynchronous JavaScript",
+      author: "Kyle Simpson",
+      url: "https://github.com/getify/You-Dont-Know-JS",
+      likes: 12,
+    };
+
+    const response = await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(201)
+      .expect("Content-type", /application\/json/);
+
+    assert.strictEqual(response.body.title, newBlog.title);
+
+    const blogsResult = await helper.queryBlogsFromDb();
+    assert.strictEqual(blogsResult.length, helper.blogs.length + 1);
+
+    const savedBlog = blogsResult.find((blog) => blog.title === newBlog.title);
+    assert.strictEqual(savedBlog.author, newBlog.author);
+    assert.strictEqual(savedBlog.url, newBlog.url);
+    assert.strictEqual(savedBlog.likes, newBlog.likes);
+  });
+});
+
 after(async () => {
   await mongoose.connection.close();
 });
