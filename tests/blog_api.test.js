@@ -26,6 +26,14 @@ describe("GET /api/blogs", () => {
 
     assert.strictEqual(response.body.length, helper.blogs.length);
   });
+
+  test("blog posts have id property instead of _id", async () => {
+    const response = await api.get("/api/blogs");
+    const blogToCheck = response.body[0];
+
+    assert.ok(Object.hasOwn(blogToCheck, "id"));
+    assert.ok(!Object.hasOwn(blogToCheck, "_id"));
+  });
 });
 
 after(async () => {
