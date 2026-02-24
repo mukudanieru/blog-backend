@@ -1,4 +1,4 @@
-const { test, after, beforeEach } = require("node:test");
+const { test, after, describe, beforeEach } = require("node:test");
 const assert = require("assert");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
@@ -10,7 +10,7 @@ const api = supertest(app);
 
 beforeEach(async () => {
   await Blog.deleteMany({});
-  await Blog.insertMany(helper.initialBlogs);
+  await Blog.insertMany(helper.blogs);
 });
 
 describe("GET /api/blogs", () => {
@@ -24,7 +24,7 @@ describe("GET /api/blogs", () => {
   test("correct amount of blogs are returned", async () => {
     const response = await api.get("/api/blogs");
 
-    assert.strictEqual(response.body.length, initialBlogs.length);
+    assert.strictEqual(response.body.length, helper.blogs.length);
   });
 });
 
