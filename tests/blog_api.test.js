@@ -61,6 +61,25 @@ describe("POST /api/blogs", () => {
     assert.strictEqual(savedBlog.url, newBlog.url);
     assert.strictEqual(savedBlog.likes, newBlog.likes);
   });
+
+  test("defaults likes to 0 when missing from request", async () => {
+    const newBlog = {
+      title: "Understanding Asynchronous JavaScript",
+      author: "Kyle Simpson",
+      url: "https://github.com/getify/You-Dont-Know-JS",
+    };
+
+    const defaultLikeValue = 0;
+
+    const response = await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(201)
+      .expect("Content-type", /application\/json/);
+
+    assert.ok(Object.hasOwn(response.body, "likes"));
+    assert.strictEqual(response.body.likes, defaultLikeValue);
+  });
 });
 
 after(async () => {
