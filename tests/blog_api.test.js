@@ -80,6 +80,24 @@ describe("POST /api/blogs", () => {
     assert.ok(Object.hasOwn(response.body, "likes"));
     assert.strictEqual(response.body.likes, defaultLikeValue);
   });
+
+  test("returns 400 if title is missing", async () => {
+    const newBlog = {
+      author: "Kyle Simpson",
+      url: "https://github.com/getify/You-Dont-Know-JS",
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
+  });
+
+  test("returns 400 if url is missing", async () => {
+    const newBlog = {
+      title: "Understanding Asynchronous JavaScript",
+      author: "Kyle Simpson",
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
+  });
 });
 
 after(async () => {
