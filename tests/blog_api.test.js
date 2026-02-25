@@ -14,20 +14,20 @@ beforeEach(async () => {
 });
 
 describe("GET /api/blogs", () => {
-  test("blogs URL returned as json", async () => {
+  test("succeeds with JSON response", async () => {
     await api
       .get("/api/blogs")
       .expect(200)
       .expect("Content-Type", /application\/json/);
   });
 
-  test("correct amount of blogs are returned", async () => {
+  test("succeeds by returning the correct number of blogs", async () => {
     const response = await api.get("/api/blogs");
 
     assert.strictEqual(response.body.length, helper.blogs.length);
   });
 
-  test("blog posts have id property instead of _id", async () => {
+  test("succeeds by using id instead of _id for blog entries", async () => {
     const response = await api.get("/api/blogs");
     const blogToCheck = response.body[0];
 
@@ -37,7 +37,7 @@ describe("GET /api/blogs", () => {
 });
 
 describe("POST /api/blogs", () => {
-  test("a valid blog post can be added", async () => {
+  test("succeeds when a valid blog post is added", async () => {
     const newBlog = {
       title: "Understanding Asynchronous JavaScript",
       author: "Kyle Simpson",
@@ -62,7 +62,7 @@ describe("POST /api/blogs", () => {
     assert.strictEqual(savedBlog.likes, newBlog.likes);
   });
 
-  test("defaults likes to 0 when missing from request", async () => {
+  test("succeeds by defaulting likes to 0 when missing", async () => {
     const newBlog = {
       title: "Understanding Asynchronous JavaScript",
       author: "Kyle Simpson",
@@ -81,7 +81,7 @@ describe("POST /api/blogs", () => {
     assert.strictEqual(response.body.likes, defaultLikeValue);
   });
 
-  test("returns 400 if title is missing", async () => {
+  test("fails with 400 when title is missing", async () => {
     const newBlog = {
       author: "Kyle Simpson",
       url: "https://github.com/getify/You-Dont-Know-JS",
@@ -90,7 +90,7 @@ describe("POST /api/blogs", () => {
     await api.post("/api/blogs").send(newBlog).expect(400);
   });
 
-  test("returns 400 if url is missing", async () => {
+  test("fails with 400 when url is missing", async () => {
     const newBlog = {
       title: "Understanding Asynchronous JavaScript",
       author: "Kyle Simpson",
