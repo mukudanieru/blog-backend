@@ -100,6 +100,33 @@ describe("POST /api/blogs", () => {
   });
 });
 
+describe("DELETE /api/blogs/:id", () => {
+  test("succeeds by deleting a blog post", async () => {
+    const blogsAtStart = await helper.queryBlogsFromDb();
+    const blogToBeDeleted = blogsAtStart[0];
+
+    console.log(blogsAtStart);
+
+    await api.delete(`/api/blogs/${blogToBeDeleted.id}`).expect(204);
+
+    const blogsResult = await helper.queryBlogsFromDb();
+
+    const ids = blogsResult.map((blog) => blog.id);
+    assert.ok(!ids.includes(blogToBeDeleted.id));
+
+    assert.strictEqual(blogsResult.length, helper.blogs.length - 1);
+  });
+
+  test("fails with 404 if blog does not exist", async () => {
+    const nonExistingId = new mongoose.Types.ObjectId();
+
+    await api
+      .delete(`/api/notes/${nonExistingId}`)
+      .expect(404)
+      .expect("Content-Type", /application\/json/);
+  });
+});
+
 after(async () => {
   await mongoose.connection.close();
 });
