@@ -26,5 +26,6 @@ app.use("/api/blogs", blogsRouter);
 
 // Fallback / error-handling middlewares (run if no route matches)
 app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 module.exports = app;
