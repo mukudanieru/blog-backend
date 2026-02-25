@@ -7,6 +7,26 @@ blogsRouter.get("/", async (request, response) => {
   response.json(blogs);
 });
 
+blogsRouter.get("/:id", async (request, response, next) => {
+  const id = request.params.id;
+
+  try {
+    const blog = await Blog.findById(id);
+
+    if (!blog) {
+      return response.status(404).json({
+        error: "NOT_FOUND",
+        message: "blog not found",
+        id,
+      });
+    }
+
+    return response.json(blog);
+  } catch (error) {
+    next(error);
+  }
+});
+
 blogsRouter.post("/", async (request, response) => {
   const { title, author, url, likes } = request.body;
 
