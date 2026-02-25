@@ -50,4 +50,23 @@ blogsRouter.post("/", async (request, response) => {
   response.status(201).json(savedBlog);
 });
 
+blogsRouter.delete("/:id", async (request, response, next) => {
+  const id = request.params.id;
+
+  try {
+    const blogToDelete = await Blog.findByIdAndDelete(id);
+
+    if (!blogToDelete) {
+      return response.status(404).json({
+        error: "NOT_FOUND",
+        message: "blog post not found",
+      });
+    }
+
+    return response.status(204).json(blogToDelete);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = blogsRouter;
