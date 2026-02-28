@@ -125,6 +125,7 @@ describe("POST /api/users", () => {
 
   test("fails with 400 if username already exists", async () => {
     const newUser = { username: "alice", name: "Alice", password: "secret123" };
+
     await api.post("/api/users").send(newUser).expect(400);
   });
 });

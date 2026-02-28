@@ -1,0 +1,30 @@
+POST http://localhost:3001/api/users/ 
+Content-Type: application/json
+
+# INVALID_FIELD_LENGTH
+
+# {
+#     "username": "he",
+#     "name": "Arto Hellas",
+#     "password": "sekret"
+# }
+
+# {
+#     "username": "hellas",
+#     "name": "Arto Hellas",
+#     "password": "se"
+# }
+
+# MISSING_REQUIRED_FIELDS
+
+# {
+#     "username": "",
+#     "name": "Arto Hellas",
+#     "password": "sekret"
+# }
+
+{
+    "username": "hellas",
+    "name": "Arto Hellas",
+    "password": "sekret"
+}
