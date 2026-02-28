@@ -105,8 +105,6 @@ describe("DELETE /api/blogs/:id", () => {
     const blogsAtStart = await helper.queryBlogsFromDb();
     const blogToBeDeleted = blogsAtStart[0];
 
-    console.log(blogsAtStart);
-
     await api.delete(`/api/blogs/${blogToBeDeleted.id}`).expect(204);
 
     const blogsResult = await helper.queryBlogsFromDb();
@@ -121,9 +119,41 @@ describe("DELETE /api/blogs/:id", () => {
     const nonExistingId = new mongoose.Types.ObjectId();
 
     await api
-      .delete(`/api/notes/${nonExistingId}`)
+      .delete(`/api/blogs/${nonExistingId}`)
       .expect(404)
       .expect("Content-Type", /application\/json/);
+  });
+});
+
+describe("PUT /api/blogs/:id", () => {
+  test("succeeds by updating a blog post", async () => {
+    const blogsAtStart = await helper.queryBlogsFromDb();
+    const blogToBeUpdated = blogsAtStart[0];
+
+    const updatedBlog = {
+      title: "Updated React patterns",
+      author: "Michael Chan",
+      url: "https://reactpatterns.com/",
+    };
+
+    const result = await api
+      .put(`/api/blogs/${blogToBeUpdated.id}`)
+      .send(updatedBlog)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+
+    console.log(result.body);
+
+    assert.strictEqual(result.body.title, updatedBlog.title);
+    assert.strictEqual(result.body.author, updatedBlog.author);
+    assert.strictEqual(result.body.url, updatedBlog.url);
+
+    const blogsAtEnd = await helper.queryBlogsFromDb();
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length);
+
+    const updatedFromDb = blogsAtEnd.find((b) => b.id === blogToBeUpdated.id);
+
+    assert.strictEqual(updatedFromDb.title, updatedBlog.title);
   });
 });
 
