@@ -1,0 +1,18 @@
+POST http://localhost:3001/api/blogs/ 
+Content-Type: application/json
+
+# {
+#     "title": "Understanding REST APIs",
+#     "author": "John Doe",
+#     "url": "https://example.com/rest-apis",
+#     "likes": 10,
+#     "userId" : "69a2d741738eb064c432aad5"
+# }
+
+{
+    "title": "React Patterns",
+    "author": "Michael Chan",
+    "url": "https://reactpatterns.com/",
+    "likes": 10,
+    "userId" : "69a2d741738eb064c432aad5"
+}
