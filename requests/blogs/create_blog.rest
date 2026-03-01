@@ -1,4 +1,5 @@
-POST http://localhost:3001/api/blogs/ 
+POST http://localhost:3001/api/blogs/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im11a3VkYW5pZXJ1IiwiaWQiOiI2OWEyZDc0MTczOGViMDY0YzQzMmFhZDUiLCJpYXQiOjE3NzIzNDkwOTYsImV4cCI6MTc3MjM1MjY5Nn0.0lCUUuoxaOCxDo68cIFhZ5u0jbFrswgn__AGDh0C17E
 Content-Type: application/json
 
 # {
@@ -9,10 +10,9 @@ Content-Type: application/json
 #     "userId" : "69a2d741738eb064c432aad5"
 # }
 
-{
-    "title": "React Patterns",
-    "author": "Michael Chan",
-    "url": "https://reactpatterns.com/",
-    "likes": 10,
-    "userId" : "69a2d741738eb064c432aad5"
-}
+  {
+    "title": "Understanding JavaScript Closures",
+    "author": "Kyle Simpson",
+    "url": "https://you-dont-know-js.com/closures",
+    "likes": 18
+  }
