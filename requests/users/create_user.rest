@@ -24,7 +24,7 @@ Content-Type: application/json
 # }
 
 {
-    "username": "hellas",
-    "name": "Arto Hellas",
+    "username": "mukudanieru",
+    "name": "John Daniel Garan",
     "password": "sekret"
 }
