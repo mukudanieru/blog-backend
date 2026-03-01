@@ -22,6 +22,7 @@ mongoose
 // Global middlewares (run on every request before routing)
 app.use(express.json());
 app.use(middleware.requestLogger);
+app.use(middleware.tokenExtractor);
 
 // Route handlers
 app.use("/api/blogs", blogsRouter);

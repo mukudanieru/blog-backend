@@ -10,9 +10,8 @@ Content-Type: application/json
 #     "userId" : "69a2d741738eb064c432aad5"
 # }
 
-  {
-    "title": "Understanding JavaScript Closures",
-    "author": "Kyle Simpson",
-    "url": "https://you-dont-know-js.com/closures",
-    "likes": 18
-  }
+{
+    "title": "Building APIs with Express",
+    "author": "Wes Bos",
+    "url": "https://wesbos.com/express-api-guide"
+}
